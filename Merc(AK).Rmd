@@ -1,0 +1,83 @@
+```{r}
+library(MASS)
+```
+```{r}
+data=merc
+```
+```{r}
+View(data)
+```
+```{r}
+head(data)
+```
+```{r}
+tail(data)
+```
+```{r}
+summary(data)
+```
+```{r}
+dim(is.na(data))
+```
+```{r}
+colnames(data)
+```
+```{r}
+colSums(is.na(data))
+```
+```{r}
+library(dplyr)
+```
+```{r}
+library(ggplot2)
+```
+```{r}
+ggplot(data, aes(x = price)) +
+  geom_histogram(binwidth = 5000, fill = 'blue', color = 'black') +
+  labs(title = 'Distribution of Car Prices', x = 'Price', y = 'Count')
+```
+```{r}
+avg_price_by_year <- data %>%
+  group_by(year) %>%
+  summarise(avg_price = mean(price))
+
+ggplot(avg_price_by_year, aes(x = year, y = avg_price)) +
+  geom_line(color = 'blue') +
+  geom_point(color = 'red') +
+  labs(title = 'Average Price of Cars by Year', x = 'Year', y = 'Average Price')
+```
+```{r}
+ggplot(data, aes(x = mileage)) +
+  geom_histogram(binwidth = 5000, fill = 'green', color = 'black') +
+  labs(title = 'Distribution of Car Mileage', x = 'Mileage', y = 'Count')
+```
+```{r}
+ggplot(data, aes(x = engineSize, y = price)) +
+  geom_point(alpha = 0.5) +
+  geom_smooth(method = 'lm', color = 'red') +
+  labs(title = 'Relationship Between Engine Size and Price', x = 'Engine Size', y = 'Price')
+```
+```{r}
+avg_price_by_fuel <- data %>%
+  group_by(fuelType) %>%
+  summarise(avg_price = mean(price))
+
+ggplot(avg_price_by_fuel, aes(x = fuelType, y = avg_price, fill = fuelType)) +
+  geom_bar(stat = 'identity') +
+  labs(title = 'Average Price by Fuel Type', x = 'Fuel Type', y = 'Average Price')
+```
+
+```{r}
+avg_mpg_by_fuel <- data %>%
+  group_by(fuelType) %>%
+  summarise(avg_mpg = mean(mpg))
+
+ggplot(avg_mpg_by_fuel, aes(x = fuelType, y = avg_mpg, fill = fuelType)) +
+  geom_bar(stat = 'identity') +
+  labs(title = 'Average MPG by Fuel Type', x = 'Fuel Type', y = 'Average MPG')
+```
+```{r}
+ggplot(data, aes(x = transmission, fill = transmission)) +
+  geom_bar() +
+  labs(title = 'Number of Cars by Transmission Type', x = 'Transmission Type', y = 'Count')
+```
